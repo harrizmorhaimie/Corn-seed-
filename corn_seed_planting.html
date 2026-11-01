@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corn Seed Planting | Agriculture Project</title>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #2b7a0b; /* Deep green */
+            --secondary: #5bb318; /* Bright green */
+            --accent: #f7b731; /* Corn yellow */
+            --dark: #222f3e;
+            --light: #f4f9f4;
+            --white: #ffffff;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        nav.scrolled {
+            padding: 12px 5%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            /* Using a high-quality agriculture placeholder for the preview */
+            background: linear-gradient(rgba(43, 122, 11, 0.85), rgba(34, 47, 62, 0.85)), url('img/flield1.jpeg') center/cover fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto 35px;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(247, 183, 49, 0.4);
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            background-color: #e5a428;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(247, 183, 49, 0.6);
+        }
+
+        /* Common Section Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Process Section */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .process-card {
+            background: var(--white);
+            padding: 50px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            border-bottom: 5px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(91, 179, 24, 0.05));
+            z-index: 0;
+        }
+
+        .process-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(43, 122, 11, 0.15);
+        }
+
+        .process-icon {
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-card p {
+            color: #555;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background-color: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(43, 122, 11, 0.9) 0%, rgba(0,0,0,0) 100%);
+            color: white;
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .overlay span {
+            transform: translateY(0);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .team-card {
+            background: var(--white);
+            width: calc(20% - 24px); /* Fits 5 cards */
+            min-width: 200px;
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(43, 122, 11, 0.15);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background-color: var(--light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .team-card:hover .avatar {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .team-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .team-card p {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .lecturer-info {
+            margin-top: 80px;
+            text-align: center;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px dashed var(--secondary);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+        
+        .lecturer-info::before {
+            content: '\f5d2'; /* Book icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .lecturer-info h4 {
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .lecturer-info h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .team-card { width: calc(33.333% - 20px); }
+            .hero h1 { font-size: 3.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Hide for simplicity on mobile in preview */
+            .hero h1 { font-size: 2.8rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .team-card { width: calc(50% - 15px); }
+        }
+        
+        @media (max-width: 480px) {
+            .team-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation -->
+    <nav id="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-seedling"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+          
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content reveal">
+            <h1>Corn Seed Planting</h1>
+            <p>Innovating modern agriculture through mechanized precision, optimized crop rows, and sustainable growth techniques.</p>
+            <a href="#process" class="btn">Explore the Process</a>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Mechanized Precision</h2>
+                <p>How modern technology transforms traditional farming into a high-yield science.</p>
+            </div>
+            
+            <div class="process-grid">
+                <div class="process-card reveal delay-100">
+                    <i class="fa-solid fa-tractor process-icon"></i>
+                    <h3>Preparation & Planting</h3>
+                    <p>Using advanced tractor equipment to ensure seeds are planted at the exact optimal depth and spacing for maximum yield.</p>
+                </div>
+                
+                <div class="process-card reveal delay-200">
+                    <i class="fa-solid fa-droplet process-icon"></i>
+                    <h3>Germination</h3>
+                    <p>Organized rows provide each seed with the precise amount of soil nutrients and water required for healthy early growth.</p>
+                </div>
+                
+                <div class="process-card reveal delay-300">
+                    <i class="fa-solid fa-sun process-icon"></i>
+                    <h3>Growth & Yield</h3>
+                    <p>Structured planting allows for optimal sunlight absorption and efficient irrigation, leading to robust stalks and ears.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Project Team</h2>
+                <p>The researchers and students behind this agricultural study.</p>
+            </div>
+            
+            <div class="team-grid">
+                <!-- Member 1 -->
+                <div class="team-card reveal delay-100">
+                    <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3>Reece Lian Jaffrey</h3>
+                    <p>Group Member</p>
+                </div>
+                <!-- Member 2 -->
+                <div class="team-card reveal delay-100">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <h3>[Member 2 Name]</h3>
+                    <p>Group Member</p>
+                </div>
+                <!-- Member 3 -->
+                <div class="team-card reveal delay-200">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <h3>[Member 3 Name]</h3>
+                    <p>Group Member</p>
+                </div>
+                <!-- Member 4 -->
+                <div class="team-card reveal delay-200">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <h3>[Member 4 Name]</h3>
+                    <p>Group Member</p>
+                </div>
+                <!-- Member 5 -->
+                <div class="team-card reveal delay-300">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <h3>[Member 5 Name]</h3>
+                    <p>Group Member</p>
+                </div>
+            </div>
+
+            <!-- Lecturer Info -->
+            <div class="lecturer-info reveal delay-200">
+                <h4>Prepared for</h4>
+                <h3>[Lecturer's Name]</h3>
+                <p>[Course Code / Subject Name]</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Corn Seed Planting Project. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Animations and Interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Sticky Navbar Effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // 2. Scroll Reveal Animation using Intersection Observer
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Unobserve after revealing once
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, revealOptions);
+            
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
